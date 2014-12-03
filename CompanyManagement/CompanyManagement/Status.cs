@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CompanyManagement
 {
-    enum Status
+   public enum Status
     {
         NotStarted = 1,
         Active = 2,
