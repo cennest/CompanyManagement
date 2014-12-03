@@ -20,23 +20,23 @@ namespace ConsoleApplication1
                 
             //}
 
-            IEnumerable<TechnologyMaster> technologies = dataLayer.GetAllTechnologies();
-            foreach (TechnologyMaster item in technologies)
-            {
-                Console.WriteLine(item.TechnologyName);
-            }
-
-            //IEnumerable<Employee> employee = dataLayer.GetAllEmployeesForProject(2);
-            //foreach (var item in employee)
+            //List<TechnologyMaster> technologies = dataLayer.GetAllTechnologies();
+            //foreach (TechnologyMaster item in technologies)
             //{
-            //    Console.WriteLine(item.EmployeeName);
+            //    Console.WriteLine(item.TechnologyName);
             //}
 
+            IEnumerable<Employee> employee = dataLayer.GetAllEmployeesForProject(2);
+            foreach (var item in employee)
+            {
+                Console.WriteLine(item.EmployeeName);
+            }
 
-            ////GetEmployeeCountForProject
-            //int count = dataLayer.GetEmployeeCountForProject(2);
-            //Console.WriteLine(count);
-            ////GetAllDelayedProjects();
+
+            //GetEmployeeCountForProject
+            int noOfEmployees = dataLayer.GetEmployeeCountForProject(2);
+            Console.WriteLine(noOfEmployees);
+            //GetAllDelayedProjects();
 
             //IEnumerable<Project> delayedproject = dataLayer.GetAllDelayedProjects();
             //foreach (var item in delayedproject)

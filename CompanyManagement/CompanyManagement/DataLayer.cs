@@ -40,9 +40,9 @@ namespace CompanyManagement
         //GetEmployeeCountForProject(int projectID)
         public int GetEmployeeCountForProject(int projectID)
         {
-            IEnumerable<EmployeeProject> EmployeeCount = from count in companyManagementDataContext.EmployeeProjects
+            List<EmployeeProject> EmployeeCount = (from count in companyManagementDataContext.EmployeeProjects
                                 where count.ProjectId == projectID
-                                select count;
+                                select count).ToList();
 
             return EmployeeCount.Count();
 
