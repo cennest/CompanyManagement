@@ -1,0 +1,8 @@
+D:\samples\Sample\CompanyManagement\ConsoleApplication1\bin\Release\ConsoleApplication1.exe.config
+D:\samples\Sample\CompanyManagement\ConsoleApplication1\bin\Release\ConsoleApplication1.exe
+D:\samples\Sample\CompanyManagement\ConsoleApplication1\bin\Release\ConsoleApplication1.pdb
+D:\samples\Sample\CompanyManagement\ConsoleApplication1\bin\Release\CompanyManagement.dll
+D:\samples\Sample\CompanyManagement\ConsoleApplication1\bin\Release\CompanyManagement.pdb
+D:\samples\Sample\CompanyManagement\ConsoleApplication1\obj\Release\DataLayerConsole.csprojResolveAssemblyReference.cache
+D:\samples\Sample\CompanyManagement\ConsoleApplication1\obj\Release\ConsoleApplication1.exe
+D:\samples\Sample\CompanyManagement\ConsoleApplication1\obj\Release\ConsoleApplication1.pdb

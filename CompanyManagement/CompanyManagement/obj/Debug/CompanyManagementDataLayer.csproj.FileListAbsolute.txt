@@ -1,0 +1,6 @@
+D:\samples\Sample\CompanyManagement\CompanyManagement\bin\Debug\CompanyManagement.dll.config
+D:\samples\Sample\CompanyManagement\CompanyManagement\bin\Debug\CompanyManagement.dll
+D:\samples\Sample\CompanyManagement\CompanyManagement\bin\Debug\CompanyManagement.pdb
+D:\samples\Sample\CompanyManagement\CompanyManagement\obj\Debug\CompanyManagement.dll
+D:\samples\Sample\CompanyManagement\CompanyManagement\obj\Debug\CompanyManagement.pdb
+D:\samples\Sample\CompanyManagement\CompanyManagement\obj\Debug\CompanyManagementDataLayer.csprojResolveAssemblyReference.cache
