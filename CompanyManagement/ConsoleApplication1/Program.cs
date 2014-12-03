@@ -36,14 +36,16 @@ namespace ConsoleApplication1
             //GetEmployeeCountForProject
             int noOfEmployees = dataLayer.GetEmployeeCountForProject(2);
             Console.WriteLine(noOfEmployees);
+
+
+
             //GetAllDelayedProjects();
+            List<Project> delayedprojects = dataLayer.GetAllDelayedProjects();
+            foreach (Project item in delayedprojects)
+            {
+                Console.WriteLine(item.ProjectName);
 
-            //IEnumerable<Project> delayedproject = dataLayer.GetAllDelayedProjects();
-            //foreach (var item in delayedproject)
-            //{
-            //    Console.WriteLine(item.ProjectName);
-
-            //}
+            }
 
 
 

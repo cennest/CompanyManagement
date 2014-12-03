@@ -49,12 +49,12 @@ namespace CompanyManagement
         }
         //GetAllDelayedProjects();
 
-        public IEnumerable<Project> GetAllDelayedProjects()
+        public List<Project> GetAllDelayedProjects()
         {
-            IEnumerable<Project> delayedProject = from delayed in companyManagementDataContext.Projects
+            List<Project> delayedProjects = (from delayed in companyManagementDataContext.Projects
                                                         where delayed.StatusId == (int)Status.Delayed
-                                                        select delayed;
-            return delayedProject;
+                                                        select delayed).ToList();
+            return delayedProjects;
         }
 
 
