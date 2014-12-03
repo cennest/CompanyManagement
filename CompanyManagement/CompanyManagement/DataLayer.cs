@@ -44,8 +44,8 @@ namespace CompanyManagement
         public int GetEmployeeCountForProject(int projectID)
         {
             int employeeCount = (from count in companyManagementDataContext.EmployeeProjects
-                                                   where count.ProjectId == projectID
-                                                   select count).Count();
+                                 where count.ProjectId == projectID
+                                 select count).Count();
 
             return employeeCount;
 
@@ -101,8 +101,8 @@ namespace CompanyManagement
                                     where project.ProjectId == projectID
                                     select project.TaskId).ToList<int>();
             List<TaskInformation> activeTasks = (from task in companyManagementDataContext.TaskInformations
-                                           where projectIds.Contains(task.TaskId)
-                                           select task).ToList<TaskInformation>();
+                                                 where projectIds.Contains(task.TaskId)
+                                                 select task).ToList<TaskInformation>();
             return activeTasks;
         }
         //GetAllTechnologiesForEmployee(int employeeID)
@@ -115,8 +115,8 @@ namespace CompanyManagement
         public int GetProjectCountForEmployee(int employeeID)
         {
             int projectCount = (from project in companyManagementDataContext.EmployeeProjects
-                                                  where project.EmployeeId == employeeID
-                                                  select project).Count();
+                                where project.EmployeeId == employeeID
+                                select project).Count();
             return projectCount;
         }
         //GetAllActiveProjectsManagedByEmployee(int employeeID)
@@ -133,8 +133,7 @@ namespace CompanyManagement
         }
 
         //GetAllDelayedTasksForEmployee(int employeeID)
-        public
-            List<TaskInformation> GetAllDelayedTasksForEmployee(int employeeID)
+        public List<TaskInformation> GetAllDelayedTasksForEmployee(int employeeID)
         {
 
             List<int> taskIds = (from task in companyManagementDataContext.EmployeeTasks
@@ -174,17 +173,7 @@ namespace CompanyManagement
                                            where (taskIdsEmployee.Contains(task.TaskId)) && (taskIdsTechnology.Contains(task.TaskId))
                                            select task).ToList<TaskInformation>();
             return tasks;
-
-
-
-
-
-
-
-
         }
     }
-
-
 }
 
