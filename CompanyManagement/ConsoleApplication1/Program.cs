@@ -34,15 +34,10 @@ namespace ConsoleApplication1
                 Console.WriteLine(employee.EmployeeName);
             }
 
-
-            //GetEmployeeCountForProject
             int noOfEmployees = dataLayer.GetEmployeeCountForProject(PROJECTID);
             Console.WriteLine("GetEmployeeCountForProject(2)");
             Console.WriteLine(noOfEmployees);
 
-
-
-            //GetAllDelayedProjects();
             List<Project> delayedProjects = dataLayer.GetAllDelayedProjects();
             Console.WriteLine("GetAllDelayedProjects()");
             foreach (Project project in delayedProjects)
@@ -50,15 +45,12 @@ namespace ConsoleApplication1
                 Console.WriteLine(project.ProjectName);
             }
 
-            //GetAllProjectsForEmployee(int employeeID)
             List<Project> projectsForEmployee = dataLayer.GetAllProjectsForEmployee(EMPLOYEEID);
             Console.WriteLine("GetAllProjectsForEmployee(1)");
             foreach (Project project in projectsForEmployee)
             {
                 Console.WriteLine(project.ProjectName);
             }
-
-            //GetAllTasksForEmployee(int employeeID)
             List<TaskInformation> tasksForEmployee = dataLayer.GetAllTasksForEmployee(EMPLOYEEID);
             Console.WriteLine("GetAllTasksForEmployee(1)");
 
@@ -66,49 +58,40 @@ namespace ConsoleApplication1
             {
                 Console.WriteLine(task.TaskName);
             }
-            //GetAllTechnologyProjects(int  technologyID)
+          
             List<Project> projectForTechnology = dataLayer.GetAllTechnologyProjects(TECHNOLOGYID);
             Console.WriteLine("GetAllTechnologyProjects(1)");
             foreach (Project project in projectForTechnology)
             {
                 Console.WriteLine(project.ProjectName);
             }
-            //GetAllActiveTasksForProject(int projectID)
+          
             List<TaskInformation> activeTasks = dataLayer.GetAllActiveTasksForProject(PROJECTID);
             Console.WriteLine("GetAllActiveTasksForProject(2)");
             foreach (TaskInformation task in activeTasks)
             {
-                if (task.StatusId == (int)Enums.Status.Active)
-                {
-                    Console.WriteLine(task.TaskName);
-                }
+              
+                Console.WriteLine(task.TaskName);
             }
-            //GetProjectCountForEmployee(int employeeID)
+   
             int projectCount = dataLayer.GetProjectCountForEmployee(EMPLOYEEID);
             Console.WriteLine("GetProjectCountForEmployee(1)");
             Console.WriteLine(projectCount);
 
-
-            //GetAllActiveProjectsManagedByEmployee(int employeeID)
             List<Project> activeProjectForEmployee = dataLayer.GetAllActiveProjectsManagedByEmployee(EMPLOYEEID);
             Console.WriteLine("GetAllActiveProjectsManagedByEmployee(1)");
             foreach (Project project in activeProjectForEmployee)
             {
-                if (project.StatusId == (int)Enums.Status.Active)
-                {
-                    Console.WriteLine(project.ProjectName);
-                }
+                 Console.WriteLine(project.ProjectName);
+                
             }
-            //GetAllDelayedTasksForEmployee(int employeeID)
+     
             List<TaskInformation> delayedTaskForEmployee = dataLayer.GetAllDelayedTasksForEmployee(EMPLOYEEID);
             Console.WriteLine("GetAllDelayedTasksForEmployee(1)");
             foreach (TaskInformation task in delayedTaskForEmployee)
             {
-                if (task.StatusId == (int)Enums.Status.Active)
-                {
                     Console.WriteLine(task.TaskName);
-                }
-                Console.WriteLine();
+               
             }
             List<TechnologyMaster> technologiesForEmployee = dataLayer.GetAllTechnologiesForEmployee(EMPLOYEEID);
             Console.WriteLine("GetAllTechnologiesForEmployee");
@@ -123,8 +106,6 @@ namespace ConsoleApplication1
             {
                 Console.WriteLine(task.TaskName);
             }
-
-
             Console.ReadKey();
         }
     }
