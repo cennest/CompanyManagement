@@ -22,7 +22,7 @@
       <Column Name="DepartmentId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="DepartmentName" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
       <Column Name="CompanyId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="DepartmetnHead" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DepartmetnHead" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="DepartmentMaster_Employee" Member="Employees" ThisKey="DepartmentId" OtherKey="DepartmentId" Type="Employee" />
       <Association Name="DepartmentMaster_Project" Member="Projects" ThisKey="DepartmentId" OtherKey="DepartmentId" Type="Project" />
       <Association Name="Company_DepartmentMaster" Member="Company" ThisKey="CompanyId" OtherKey="CompanyId" Type="Company" IsForeignKey="true" />
@@ -55,7 +55,7 @@
       <Column Name="EmployeeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="TaskId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Association Name="Employee_EmployeeTask" Member="Employee" ThisKey="EmployeeId" OtherKey="EmployeeId" Type="Employee" IsForeignKey="true" />
-      <Association Name="Task_EmployeeTask" Member="Task" ThisKey="TaskId" OtherKey="TaskId" Type="Task" IsForeignKey="true" />
+      <Association Name="TaskInformation_EmployeeTask" Member="TaskInformation" ThisKey="TaskId" OtherKey="TaskId" Type="TaskInformation" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Project" Member="Projects">
@@ -68,7 +68,7 @@
       <Association Name="Project_EmployeeProject" Member="EmployeeProjects" ThisKey="ProjectId" OtherKey="ProjectId" Type="EmployeeProject" />
       <Association Name="Project_ProjectTask" Member="ProjectTasks" ThisKey="ProjectId" OtherKey="ProjectId" Type="ProjectTask" />
       <Association Name="Project_ProjectTechnology" Member="ProjectTechnologies" ThisKey="ProjectId" OtherKey="ProjectId" Type="ProjectTechnology" />
-      <Association Name="Project_Task" Member="Tasks" ThisKey="ProjectId" OtherKey="ProjectId" Type="Task" />
+      <Association Name="Project_TaskInformation" Member="TaskInformations" ThisKey="ProjectId" OtherKey="ProjectId" Type="TaskInformation" />
       <Association Name="Client_Project" Member="Client" ThisKey="ClientId" OtherKey="ClientId" Type="Client" IsForeignKey="true" />
       <Association Name="DepartmentMaster_Project" Member="DepartmentMaster" ThisKey="DepartmentId" OtherKey="DepartmentId" Type="DepartmentMaster" IsForeignKey="true" />
       <Association Name="StatusMaster_Project" Member="StatusMaster" ThisKey="StatusId" OtherKey="StatusId" Type="StatusMaster" IsForeignKey="true" />
@@ -80,7 +80,7 @@
       <Column Name="ProjectId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="TaskId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Association Name="Project_ProjectTask" Member="Project" ThisKey="ProjectId" OtherKey="ProjectId" Type="Project" IsForeignKey="true" />
-      <Association Name="Task_ProjectTask" Member="Task" ThisKey="TaskId" OtherKey="TaskId" Type="Task" IsForeignKey="true" />
+      <Association Name="TaskInformation_ProjectTask" Member="TaskInformation" ThisKey="TaskId" OtherKey="TaskId" Type="TaskInformation" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.ProjectTechnology" Member="ProjectTechnologies">
@@ -97,20 +97,20 @@
       <Column Name="StatusId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="StatusName" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
       <Association Name="StatusMaster_Project" Member="Projects" ThisKey="StatusId" OtherKey="StatusId" Type="Project" />
-      <Association Name="StatusMaster_Task" Member="Tasks" ThisKey="StatusId" OtherKey="StatusId" Type="Task" />
+      <Association Name="StatusMaster_TaskInformation" Member="TaskInformations" ThisKey="StatusId" OtherKey="StatusId" Type="TaskInformation" />
     </Type>
   </Table>
-  <Table Name="dbo.Task" Member="Tasks">
-    <Type Name="Task">
+  <Table Name="dbo.TaskInformation" Member="TaskInformations">
+    <Type Name="TaskInformation">
       <Column Name="TaskId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="TaskName" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
       <Column Name="StatusId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="ProjectId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="Task_EmployeeTask" Member="EmployeeTasks" ThisKey="TaskId" OtherKey="TaskId" Type="EmployeeTask" />
-      <Association Name="Task_ProjectTask" Member="ProjectTasks" ThisKey="TaskId" OtherKey="TaskId" Type="ProjectTask" />
-      <Association Name="Task_TechnologyTask" Member="TechnologyTasks" ThisKey="TaskId" OtherKey="TaskId" Type="TechnologyTask" />
-      <Association Name="Project_Task" Member="Project" ThisKey="ProjectId" OtherKey="ProjectId" Type="Project" IsForeignKey="true" />
-      <Association Name="StatusMaster_Task" Member="StatusMaster" ThisKey="StatusId" OtherKey="StatusId" Type="StatusMaster" IsForeignKey="true" />
+      <Association Name="TaskInformation_EmployeeTask" Member="EmployeeTasks" ThisKey="TaskId" OtherKey="TaskId" Type="EmployeeTask" />
+      <Association Name="TaskInformation_ProjectTask" Member="ProjectTasks" ThisKey="TaskId" OtherKey="TaskId" Type="ProjectTask" />
+      <Association Name="TaskInformation_TechnologyTask" Member="TechnologyTasks" ThisKey="TaskId" OtherKey="TaskId" Type="TechnologyTask" />
+      <Association Name="Project_TaskInformation" Member="Project" ThisKey="ProjectId" OtherKey="ProjectId" Type="Project" IsForeignKey="true" />
+      <Association Name="StatusMaster_TaskInformation" Member="StatusMaster" ThisKey="StatusId" OtherKey="StatusId" Type="StatusMaster" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.TechnologyMaster" Member="TechnologyMasters">
@@ -126,7 +126,7 @@
       <Column Name="TechnologyTask" Member="TechnologyTask1" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="TechnologyId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="TaskId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="Task_TechnologyTask" Member="Task" ThisKey="TaskId" OtherKey="TaskId" Type="Task" IsForeignKey="true" />
+      <Association Name="TaskInformation_TechnologyTask" Member="TaskInformation" ThisKey="TaskId" OtherKey="TaskId" Type="TaskInformation" IsForeignKey="true" />
       <Association Name="TechnologyMaster_TechnologyTask" Member="TechnologyMaster" ThisKey="TechnologyId" OtherKey="TechnologyId" Type="TechnologyMaster" IsForeignKey="true" />
     </Type>
   </Table>
