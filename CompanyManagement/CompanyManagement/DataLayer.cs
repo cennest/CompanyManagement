@@ -6,61 +6,124 @@ using System.Threading.Tasks;
 
 namespace CompanyManagement
 {
-   public class DataLayer
+    public class DataLayer
     {
         CompanyManagementDataContextDataContext companyManagementDataContext = new CompanyManagementDataContextDataContext();
 
         public List<Project> GetAllProjects()
-        { 
+        {
             List<Project> projects = (from project in companyManagementDataContext.Projects
-                                                       select project).ToList<Project>();
+                                      select project).ToList<Project>();
             return projects;
         }
 
-      //GetAllTechnologies()
         public List<TechnologyMaster> GetAllTechnologies()
         {
-            List<TechnologyMaster> technologies=(from technology in companyManagementDataContext.TechnologyMasters select technology).ToList();
+            List<TechnologyMaster> technologies = (from technology in companyManagementDataContext.TechnologyMasters
+                                                   select technology).ToList<TechnologyMaster>();
             return technologies;
         }
-       
-        public  IEnumerable<Employee> GetAllEmployeesForProject(int projectID)
-        {
-            IEnumerable<int> innerquery = from allemployee in companyManagementDataContext.EmployeeProjects
-                                         where  allemployee.ProjectId==projectID
-                                         select allemployee.EmployeeId;
 
-                             
-            IEnumerable<Employee> result = from employee in companyManagementDataContext.Employees
-                                            where innerquery.Contains(employee.EmployeeId)
-                                            select employee;
-            return result;
+        public List<Employee> GetAllEmployeesForProject(int projectID)
+        {
+            List<Employee> employees = (from employee in companyManagementDataContext.Employees
+                                        where employee.EmployeeProjects.Any(employeeProject => employeeProject.ProjectId == projectID)
+                                        select employee).ToList<Employee>();
+            return employees;
+
         }
 
-        //GetEmployeeCountForProject(int projectID)
         public int GetEmployeeCountForProject(int projectID)
         {
-            IEnumerable<EmployeeProject> EmployeeCount = from count in companyManagementDataContext.EmployeeProjects
-                                where count.ProjectId == projectID
-                                select count;
-
-            return EmployeeCount.Count();
-
+            int employeeCount = (from count in companyManagementDataContext.EmployeeProjects
+                                 where count.ProjectId == projectID
+                                 select count).Count();
+            return employeeCount;
         }
-        //GetAllDelayedProjects();
 
-        public IEnumerable<Project> GetAllDelayedProjects()
+        public List<Project> GetAllDelayedProjects()
         {
-            IEnumerable<Project> delayedProject = from delayed in companyManagementDataContext.Projects
-                                                        where delayed.StatusId == (int)Status.Delayed
-                                                        select delayed;
-            return delayedProject;
+            List<Project> delayedProjects = (from project in companyManagementDataContext.Projects
+                                             where project.StatusId == (int)Enums.Status.Delayed
+                                             select project).ToList<Project>();
+            return delayedProjects;
         }
 
+        public List<Project> GetAllProjectsForEmployee(int employeeID)
+        {
+            List<Project> projects = (from project in companyManagementDataContext.Projects
+                                      where project.EmployeeProjects.Any(employeeProject => employeeProject.EmployeeId == employeeID)
+                                      select project).ToList<Project>();
+            return projects;
 
-      
+        }
+
+        public List<TaskInformation> GetAllTasksForEmployee(int employeeID)
+        {
+            List<TaskInformation> tasks = (from task in companyManagementDataContext.TaskInformations
+                                           where companyManagementDataContext.EmployeeTasks.Any(employeeTask => employeeTask.EmployeeId == employeeID)
+                                           select task).ToList<TaskInformation>();
+            return tasks;
+        }
+
+        public List<Project> GetAllTechnologyProjects(int technologyID)
+        {
+            List<Project> projects = (from project in companyManagementDataContext.Projects
+                                      where companyManagementDataContext.ProjectTechnologies.Any(projectTechnology => projectTechnology.TechnologyId == technologyID)
+                                      select project).ToList<Project>();
+            return projects;
+        }
+
+        public List<TaskInformation> GetAllActiveTasksForProject(int projectID)
+        {
+            List<TaskInformation> activeTasks = (from task in companyManagementDataContext.TaskInformations
+                                                 where (companyManagementDataContext.ProjectTasks.Any(projectTask => projectTask.ProjectId == projectID && task.StatusId == (int)Enums.Status.Active))
+                                                 select task).ToList<TaskInformation>();
+            return activeTasks;
+        }
+
+        public int GetProjectCountForEmployee(int employeeID)
+        {
+            int projectCount = (from project in companyManagementDataContext.EmployeeProjects
+                                where project.EmployeeId == employeeID
+                                select project).Count();
+            return projectCount;
+        }
+
+        public List<Project> GetAllActiveProjectsManagedByEmployee(int employeeID)
+        {
+            List<Project> projects = (from project in companyManagementDataContext.Projects
+                                      where companyManagementDataContext.EmployeeProjects.Any(employeeProject => employeeProject.EmployeeId == employeeID && project.StatusId == (int)Enums.Status.Active)
+                                      select project).ToList<Project>();
+            return projects;
+        }
+
+        public List<TaskInformation> GetAllDelayedTasksForEmployee(int employeeID)
+        {
+            List<TaskInformation> tasks = (from task in companyManagementDataContext.TaskInformations
+                                           where companyManagementDataContext.EmployeeTasks.Any(employeeTask => employeeTask.EmployeeId == employeeID && task.StatusId == (int)Enums.Status.Delayed)
+                                           select task).ToList<TaskInformation>();
+            return tasks;
+        }
+
+        public List<TechnologyMaster> GetAllTechnologiesForEmployee(int employeeID)
+        {
+            List<int> technologyIds = (from projectTechnology in companyManagementDataContext.ProjectTechnologies
+                                       where companyManagementDataContext.EmployeeProjects.Any(employeeProject => employeeProject.EmployeeId == employeeID)
+                                       select projectTechnology.TechnologyId).ToList<int>();
+            List<TechnologyMaster> technologies = (from technology in companyManagementDataContext.TechnologyMasters
+                                                   where technologyIds.Contains(technology.TechnologyId)
+                                                   select technology).ToList<TechnologyMaster>();
+            return technologies;
+        }
+
+        public List<TaskInformation> GetAllTechnologyTasksForEmployee(int technologyID, int employeeID)
+        {
+            List<TaskInformation> tasks = (from task in companyManagementDataContext.TaskInformations
+                                           where companyManagementDataContext.TechnologyTasks.Any(o => o.TechnologyId == technologyID) && companyManagementDataContext.EmployeeTasks.Any(p => p.EmployeeId == employeeID)
+                                           select task).ToList<TaskInformation>();
+            return tasks;
+        }
     }
-
-
 }
 

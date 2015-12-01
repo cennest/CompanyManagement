@@ -6,3 +6,7 @@ D:\samples\Sample\CompanyManagement\ConsoleApplication1\bin\Release\CompanyManag
 D:\samples\Sample\CompanyManagement\ConsoleApplication1\obj\Release\DataLayerConsole.csprojResolveAssemblyReference.cache
 D:\samples\Sample\CompanyManagement\ConsoleApplication1\obj\Release\ConsoleApplication1.exe
 D:\samples\Sample\CompanyManagement\ConsoleApplication1\obj\Release\ConsoleApplication1.pdb
+C:\CompanyManagement\CompanyManagement\CompanyManagement\ConsoleApplication1\bin\Release\ConsoleApplication1.exe.config
+C:\CompanyManagement\CompanyManagement\CompanyManagement\ConsoleApplication1\obj\Release\ConsoleApplication1.exe
+C:\CompanyManagement\CompanyManagement\CompanyManagement\ConsoleApplication1\obj\Release\ConsoleApplication1.pdb
+C:\CompanyManagement\CompanyManagement\CompanyManagement\ConsoleApplication1\obj\Release\DataLayerConsole.csprojResolveAssemblyReference.cache

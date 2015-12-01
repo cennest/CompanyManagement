@@ -60,9 +60,9 @@ namespace CompanyManagement
     partial void InsertStatusMaster(StatusMaster instance);
     partial void UpdateStatusMaster(StatusMaster instance);
     partial void DeleteStatusMaster(StatusMaster instance);
-    partial void InsertTask(Task instance);
-    partial void UpdateTask(Task instance);
-    partial void DeleteTask(Task instance);
+    partial void InsertTaskInformation(TaskInformation instance);
+    partial void UpdateTaskInformation(TaskInformation instance);
+    partial void DeleteTaskInformation(TaskInformation instance);
     partial void InsertTechnologyMaster(TechnologyMaster instance);
     partial void UpdateTechnologyMaster(TechnologyMaster instance);
     partial void DeleteTechnologyMaster(TechnologyMaster instance);
@@ -181,11 +181,11 @@ namespace CompanyManagement
 			}
 		}
 		
-		public System.Data.Linq.Table<Task> Tasks
+		public System.Data.Linq.Table<TaskInformation> TaskInformations
 		{
 			get
 			{
-				return this.GetTable<Task>();
+				return this.GetTable<TaskInformation>();
 			}
 		}
 		
@@ -539,7 +539,7 @@ namespace CompanyManagement
 		
 		private int _CompanyId;
 		
-		private int _DepartmetnHead;
+		private System.Nullable<int> _DepartmetnHead;
 		
 		private EntitySet<Employee> _Employees;
 		
@@ -559,7 +559,7 @@ namespace CompanyManagement
     partial void OnDepartmentNameChanged();
     partial void OnCompanyIdChanging(int value);
     partial void OnCompanyIdChanged();
-    partial void OnDepartmetnHeadChanging(int value);
+    partial void OnDepartmetnHeadChanging(System.Nullable<int> value);
     partial void OnDepartmetnHeadChanged();
     #endregion
 		
@@ -636,8 +636,8 @@ namespace CompanyManagement
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DepartmetnHead", DbType="Int NOT NULL")]
-		public int DepartmetnHead
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DepartmetnHead", DbType="Int")]
+		public System.Nullable<int> DepartmetnHead
 		{
 			get
 			{
@@ -747,7 +747,7 @@ namespace CompanyManagement
 					}
 					else
 					{
-						this._DepartmetnHead = default(int);
+						this._DepartmetnHead = default(Nullable<int>);
 					}
 					this.SendPropertyChanged("Employee");
 				}
@@ -1240,7 +1240,7 @@ namespace CompanyManagement
 		
 		private EntityRef<Employee> _Employee;
 		
-		private EntityRef<Task> _Task;
+		private EntityRef<TaskInformation> _TaskInformation;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -1257,7 +1257,7 @@ namespace CompanyManagement
 		public EmployeeTask()
 		{
 			this._Employee = default(EntityRef<Employee>);
-			this._Task = default(EntityRef<Task>);
+			this._TaskInformation = default(EntityRef<TaskInformation>);
 			OnCreated();
 		}
 		
@@ -1316,7 +1316,7 @@ namespace CompanyManagement
 			{
 				if ((this._TaskId != value))
 				{
-					if (this._Task.HasLoadedOrAssignedValue)
+					if (this._TaskInformation.HasLoadedOrAssignedValue)
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
@@ -1363,26 +1363,26 @@ namespace CompanyManagement
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Task_EmployeeTask", Storage="_Task", ThisKey="TaskId", OtherKey="TaskId", IsForeignKey=true)]
-		public Task Task
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="TaskInformation_EmployeeTask", Storage="_TaskInformation", ThisKey="TaskId", OtherKey="TaskId", IsForeignKey=true)]
+		public TaskInformation TaskInformation
 		{
 			get
 			{
-				return this._Task.Entity;
+				return this._TaskInformation.Entity;
 			}
 			set
 			{
-				Task previousValue = this._Task.Entity;
+				TaskInformation previousValue = this._TaskInformation.Entity;
 				if (((previousValue != value) 
-							|| (this._Task.HasLoadedOrAssignedValue == false)))
+							|| (this._TaskInformation.HasLoadedOrAssignedValue == false)))
 				{
 					this.SendPropertyChanging();
 					if ((previousValue != null))
 					{
-						this._Task.Entity = null;
+						this._TaskInformation.Entity = null;
 						previousValue.EmployeeTasks.Remove(this);
 					}
-					this._Task.Entity = value;
+					this._TaskInformation.Entity = value;
 					if ((value != null))
 					{
 						value.EmployeeTasks.Add(this);
@@ -1392,7 +1392,7 @@ namespace CompanyManagement
 					{
 						this._TaskId = default(int);
 					}
-					this.SendPropertyChanged("Task");
+					this.SendPropertyChanged("TaskInformation");
 				}
 			}
 		}
@@ -1440,7 +1440,7 @@ namespace CompanyManagement
 		
 		private EntitySet<ProjectTechnology> _ProjectTechnologies;
 		
-		private EntitySet<Task> _Tasks;
+		private EntitySet<TaskInformation> _TaskInformations;
 		
 		private EntityRef<Client> _Client;
 		
@@ -1469,7 +1469,7 @@ namespace CompanyManagement
 			this._EmployeeProjects = new EntitySet<EmployeeProject>(new Action<EmployeeProject>(this.attach_EmployeeProjects), new Action<EmployeeProject>(this.detach_EmployeeProjects));
 			this._ProjectTasks = new EntitySet<ProjectTask>(new Action<ProjectTask>(this.attach_ProjectTasks), new Action<ProjectTask>(this.detach_ProjectTasks));
 			this._ProjectTechnologies = new EntitySet<ProjectTechnology>(new Action<ProjectTechnology>(this.attach_ProjectTechnologies), new Action<ProjectTechnology>(this.detach_ProjectTechnologies));
-			this._Tasks = new EntitySet<Task>(new Action<Task>(this.attach_Tasks), new Action<Task>(this.detach_Tasks));
+			this._TaskInformations = new EntitySet<TaskInformation>(new Action<TaskInformation>(this.attach_TaskInformations), new Action<TaskInformation>(this.detach_TaskInformations));
 			this._Client = default(EntityRef<Client>);
 			this._DepartmentMaster = default(EntityRef<DepartmentMaster>);
 			this._StatusMaster = default(EntityRef<StatusMaster>);
@@ -1627,16 +1627,16 @@ namespace CompanyManagement
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Project_Task", Storage="_Tasks", ThisKey="ProjectId", OtherKey="ProjectId")]
-		public EntitySet<Task> Tasks
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Project_TaskInformation", Storage="_TaskInformations", ThisKey="ProjectId", OtherKey="ProjectId")]
+		public EntitySet<TaskInformation> TaskInformations
 		{
 			get
 			{
-				return this._Tasks;
+				return this._TaskInformations;
 			}
 			set
 			{
-				this._Tasks.Assign(value);
+				this._TaskInformations.Assign(value);
 			}
 		}
 		
@@ -1798,13 +1798,13 @@ namespace CompanyManagement
 			entity.Project = null;
 		}
 		
-		private void attach_Tasks(Task entity)
+		private void attach_TaskInformations(TaskInformation entity)
 		{
 			this.SendPropertyChanging();
 			entity.Project = this;
 		}
 		
-		private void detach_Tasks(Task entity)
+		private void detach_TaskInformations(TaskInformation entity)
 		{
 			this.SendPropertyChanging();
 			entity.Project = null;
@@ -1825,7 +1825,7 @@ namespace CompanyManagement
 		
 		private EntityRef<Project> _Project;
 		
-		private EntityRef<Task> _Task;
+		private EntityRef<TaskInformation> _TaskInformation;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -1842,7 +1842,7 @@ namespace CompanyManagement
 		public ProjectTask()
 		{
 			this._Project = default(EntityRef<Project>);
-			this._Task = default(EntityRef<Task>);
+			this._TaskInformation = default(EntityRef<TaskInformation>);
 			OnCreated();
 		}
 		
@@ -1901,7 +1901,7 @@ namespace CompanyManagement
 			{
 				if ((this._TaskId != value))
 				{
-					if (this._Task.HasLoadedOrAssignedValue)
+					if (this._TaskInformation.HasLoadedOrAssignedValue)
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
@@ -1948,26 +1948,26 @@ namespace CompanyManagement
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Task_ProjectTask", Storage="_Task", ThisKey="TaskId", OtherKey="TaskId", IsForeignKey=true)]
-		public Task Task
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="TaskInformation_ProjectTask", Storage="_TaskInformation", ThisKey="TaskId", OtherKey="TaskId", IsForeignKey=true)]
+		public TaskInformation TaskInformation
 		{
 			get
 			{
-				return this._Task.Entity;
+				return this._TaskInformation.Entity;
 			}
 			set
 			{
-				Task previousValue = this._Task.Entity;
+				TaskInformation previousValue = this._TaskInformation.Entity;
 				if (((previousValue != value) 
-							|| (this._Task.HasLoadedOrAssignedValue == false)))
+							|| (this._TaskInformation.HasLoadedOrAssignedValue == false)))
 				{
 					this.SendPropertyChanging();
 					if ((previousValue != null))
 					{
-						this._Task.Entity = null;
+						this._TaskInformation.Entity = null;
 						previousValue.ProjectTasks.Remove(this);
 					}
-					this._Task.Entity = value;
+					this._TaskInformation.Entity = value;
 					if ((value != null))
 					{
 						value.ProjectTasks.Add(this);
@@ -1977,7 +1977,7 @@ namespace CompanyManagement
 					{
 						this._TaskId = default(int);
 					}
-					this.SendPropertyChanged("Task");
+					this.SendPropertyChanged("TaskInformation");
 				}
 			}
 		}
@@ -2207,7 +2207,7 @@ namespace CompanyManagement
 		
 		private EntitySet<Project> _Projects;
 		
-		private EntitySet<Task> _Tasks;
+		private EntitySet<TaskInformation> _TaskInformations;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -2222,7 +2222,7 @@ namespace CompanyManagement
 		public StatusMaster()
 		{
 			this._Projects = new EntitySet<Project>(new Action<Project>(this.attach_Projects), new Action<Project>(this.detach_Projects));
-			this._Tasks = new EntitySet<Task>(new Action<Task>(this.attach_Tasks), new Action<Task>(this.detach_Tasks));
+			this._TaskInformations = new EntitySet<TaskInformation>(new Action<TaskInformation>(this.attach_TaskInformations), new Action<TaskInformation>(this.detach_TaskInformations));
 			OnCreated();
 		}
 		
@@ -2279,16 +2279,16 @@ namespace CompanyManagement
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="StatusMaster_Task", Storage="_Tasks", ThisKey="StatusId", OtherKey="StatusId")]
-		public EntitySet<Task> Tasks
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="StatusMaster_TaskInformation", Storage="_TaskInformations", ThisKey="StatusId", OtherKey="StatusId")]
+		public EntitySet<TaskInformation> TaskInformations
 		{
 			get
 			{
-				return this._Tasks;
+				return this._TaskInformations;
 			}
 			set
 			{
-				this._Tasks.Assign(value);
+				this._TaskInformations.Assign(value);
 			}
 		}
 		
@@ -2324,21 +2324,21 @@ namespace CompanyManagement
 			entity.StatusMaster = null;
 		}
 		
-		private void attach_Tasks(Task entity)
+		private void attach_TaskInformations(TaskInformation entity)
 		{
 			this.SendPropertyChanging();
 			entity.StatusMaster = this;
 		}
 		
-		private void detach_Tasks(Task entity)
+		private void detach_TaskInformations(TaskInformation entity)
 		{
 			this.SendPropertyChanging();
 			entity.StatusMaster = null;
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Task")]
-	public partial class Task : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.TaskInformation")]
+	public partial class TaskInformation : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
@@ -2375,7 +2375,7 @@ namespace CompanyManagement
     partial void OnProjectIdChanged();
     #endregion
 		
-		public Task()
+		public TaskInformation()
 		{
 			this._EmployeeTasks = new EntitySet<EmployeeTask>(new Action<EmployeeTask>(this.attach_EmployeeTasks), new Action<EmployeeTask>(this.detach_EmployeeTasks));
 			this._ProjectTasks = new EntitySet<ProjectTask>(new Action<ProjectTask>(this.attach_ProjectTasks), new Action<ProjectTask>(this.detach_ProjectTasks));
@@ -2473,7 +2473,7 @@ namespace CompanyManagement
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Task_EmployeeTask", Storage="_EmployeeTasks", ThisKey="TaskId", OtherKey="TaskId")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="TaskInformation_EmployeeTask", Storage="_EmployeeTasks", ThisKey="TaskId", OtherKey="TaskId")]
 		public EntitySet<EmployeeTask> EmployeeTasks
 		{
 			get
@@ -2486,7 +2486,7 @@ namespace CompanyManagement
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Task_ProjectTask", Storage="_ProjectTasks", ThisKey="TaskId", OtherKey="TaskId")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="TaskInformation_ProjectTask", Storage="_ProjectTasks", ThisKey="TaskId", OtherKey="TaskId")]
 		public EntitySet<ProjectTask> ProjectTasks
 		{
 			get
@@ -2499,7 +2499,7 @@ namespace CompanyManagement
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Task_TechnologyTask", Storage="_TechnologyTasks", ThisKey="TaskId", OtherKey="TaskId")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="TaskInformation_TechnologyTask", Storage="_TechnologyTasks", ThisKey="TaskId", OtherKey="TaskId")]
 		public EntitySet<TechnologyTask> TechnologyTasks
 		{
 			get
@@ -2512,7 +2512,7 @@ namespace CompanyManagement
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Project_Task", Storage="_Project", ThisKey="ProjectId", OtherKey="ProjectId", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Project_TaskInformation", Storage="_Project", ThisKey="ProjectId", OtherKey="ProjectId", IsForeignKey=true)]
 		public Project Project
 		{
 			get
@@ -2529,12 +2529,12 @@ namespace CompanyManagement
 					if ((previousValue != null))
 					{
 						this._Project.Entity = null;
-						previousValue.Tasks.Remove(this);
+						previousValue.TaskInformations.Remove(this);
 					}
 					this._Project.Entity = value;
 					if ((value != null))
 					{
-						value.Tasks.Add(this);
+						value.TaskInformations.Add(this);
 						this._ProjectId = value.ProjectId;
 					}
 					else
@@ -2546,7 +2546,7 @@ namespace CompanyManagement
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="StatusMaster_Task", Storage="_StatusMaster", ThisKey="StatusId", OtherKey="StatusId", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="StatusMaster_TaskInformation", Storage="_StatusMaster", ThisKey="StatusId", OtherKey="StatusId", IsForeignKey=true)]
 		public StatusMaster StatusMaster
 		{
 			get
@@ -2563,12 +2563,12 @@ namespace CompanyManagement
 					if ((previousValue != null))
 					{
 						this._StatusMaster.Entity = null;
-						previousValue.Tasks.Remove(this);
+						previousValue.TaskInformations.Remove(this);
 					}
 					this._StatusMaster.Entity = value;
 					if ((value != null))
 					{
-						value.Tasks.Add(this);
+						value.TaskInformations.Add(this);
 						this._StatusId = value.StatusId;
 					}
 					else
@@ -2603,37 +2603,37 @@ namespace CompanyManagement
 		private void attach_EmployeeTasks(EmployeeTask entity)
 		{
 			this.SendPropertyChanging();
-			entity.Task = this;
+			entity.TaskInformation = this;
 		}
 		
 		private void detach_EmployeeTasks(EmployeeTask entity)
 		{
 			this.SendPropertyChanging();
-			entity.Task = null;
+			entity.TaskInformation = null;
 		}
 		
 		private void attach_ProjectTasks(ProjectTask entity)
 		{
 			this.SendPropertyChanging();
-			entity.Task = this;
+			entity.TaskInformation = this;
 		}
 		
 		private void detach_ProjectTasks(ProjectTask entity)
 		{
 			this.SendPropertyChanging();
-			entity.Task = null;
+			entity.TaskInformation = null;
 		}
 		
 		private void attach_TechnologyTasks(TechnologyTask entity)
 		{
 			this.SendPropertyChanging();
-			entity.Task = this;
+			entity.TaskInformation = this;
 		}
 		
 		private void detach_TechnologyTasks(TechnologyTask entity)
 		{
 			this.SendPropertyChanging();
-			entity.Task = null;
+			entity.TaskInformation = null;
 		}
 	}
 	
@@ -2791,7 +2791,7 @@ namespace CompanyManagement
 		
 		private int _TaskId;
 		
-		private EntityRef<Task> _Task;
+		private EntityRef<TaskInformation> _TaskInformation;
 		
 		private EntityRef<TechnologyMaster> _TechnologyMaster;
 		
@@ -2809,7 +2809,7 @@ namespace CompanyManagement
 		
 		public TechnologyTask()
 		{
-			this._Task = default(EntityRef<Task>);
+			this._TaskInformation = default(EntityRef<TaskInformation>);
 			this._TechnologyMaster = default(EntityRef<TechnologyMaster>);
 			OnCreated();
 		}
@@ -2869,7 +2869,7 @@ namespace CompanyManagement
 			{
 				if ((this._TaskId != value))
 				{
-					if (this._Task.HasLoadedOrAssignedValue)
+					if (this._TaskInformation.HasLoadedOrAssignedValue)
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
@@ -2882,26 +2882,26 @@ namespace CompanyManagement
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Task_TechnologyTask", Storage="_Task", ThisKey="TaskId", OtherKey="TaskId", IsForeignKey=true)]
-		public Task Task
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="TaskInformation_TechnologyTask", Storage="_TaskInformation", ThisKey="TaskId", OtherKey="TaskId", IsForeignKey=true)]
+		public TaskInformation TaskInformation
 		{
 			get
 			{
-				return this._Task.Entity;
+				return this._TaskInformation.Entity;
 			}
 			set
 			{
-				Task previousValue = this._Task.Entity;
+				TaskInformation previousValue = this._TaskInformation.Entity;
 				if (((previousValue != value) 
-							|| (this._Task.HasLoadedOrAssignedValue == false)))
+							|| (this._TaskInformation.HasLoadedOrAssignedValue == false)))
 				{
 					this.SendPropertyChanging();
 					if ((previousValue != null))
 					{
-						this._Task.Entity = null;
+						this._TaskInformation.Entity = null;
 						previousValue.TechnologyTasks.Remove(this);
 					}
-					this._Task.Entity = value;
+					this._TaskInformation.Entity = value;
 					if ((value != null))
 					{
 						value.TechnologyTasks.Add(this);
@@ -2911,7 +2911,7 @@ namespace CompanyManagement
 					{
 						this._TaskId = default(int);
 					}
-					this.SendPropertyChanged("Task");
+					this.SendPropertyChanged("TaskInformation");
 				}
 			}
 		}

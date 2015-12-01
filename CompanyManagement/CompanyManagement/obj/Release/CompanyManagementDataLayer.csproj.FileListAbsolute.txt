@@ -3,3 +3,4 @@ D:\samples\Sample\CompanyManagement\CompanyManagement\bin\Release\CompanyManagem
 D:\samples\Sample\CompanyManagement\CompanyManagement\bin\Release\CompanyManagement.pdb
 D:\samples\Sample\CompanyManagement\CompanyManagement\obj\Release\CompanyManagement.dll
 D:\samples\Sample\CompanyManagement\CompanyManagement\obj\Release\CompanyManagement.pdb
+C:\CompanyManagement\CompanyManagement\CompanyManagement\CompanyManagement\obj\Release\CompanyManagement.dll
